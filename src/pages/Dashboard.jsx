@@ -3,7 +3,7 @@
 
 function Dashboard() {
   return (
-    <>Dashboard</>
+    <></>
     // <Row type="horizontal">
     //   <Heading as="h1">Dashboard</Heading>
     //   <p>TEST</p>
