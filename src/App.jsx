@@ -3,6 +3,8 @@ import GlobalStyle from "./styles/GlobalStyle";
 import { Suspense, lazy } from "react";
 import AppLayout from "./ui/AppLayout";
 import FullSpinner from "./ui/FullSpinner";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 const Account = lazy(() => import("./pages/Account"));
 const Bookings = lazy(() => import("./pages/Bookings"));
 const Cabins = lazy(() => import("./pages/Cabins"));
@@ -12,8 +14,16 @@ const PageNotFound = lazy(() => import("./pages/PageNotFound"));
 const Settings = lazy(() => import("./pages/Settings"));
 const Users = lazy(() => import("./pages/Users"));
 function App() {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 0,
+      },
+    },
+  });
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <GlobalStyle />
       <BrowserRouter>
         <Suspense fallback={<FullSpinner />}>
@@ -32,7 +42,7 @@ function App() {
           </Routes>
         </Suspense>
       </BrowserRouter>
-    </>
+    </QueryClientProvider>
   );
 }
 
