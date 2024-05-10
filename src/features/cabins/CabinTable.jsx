@@ -2,6 +2,7 @@ import Table from "../../ui/Table";
 import CabinRow from "./CabinRow";
 import { useCabins } from "./useCabins";
 import Spinner from "./../../ui/Spinner";
+import CreateCabinForm from "./CreateCabinForm";
 
 function CabinTable() {
   const { cabins, isLoading, error } = useCabins();
@@ -25,6 +26,9 @@ function CabinTable() {
           data={cabins}
           render={(cabin, idx) => <CabinRow cabin={cabin} key={idx} />}
         />
+        <Table.Window>
+          <CreateCabinForm />
+        </Table.Window>
       </Table>
     </>
   );

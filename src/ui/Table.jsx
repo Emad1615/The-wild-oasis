@@ -1,6 +1,8 @@
-import { createContext, useContext, useState } from "react";
+import { cloneElement, createContext, useContext, useState } from "react";
 import styled from "styled-components";
-import { HiOutlinePlus } from "react-icons/hi2";
+import { HiOutlinePlus, HiOutlineXMark } from "react-icons/hi2";
+import { useClickOutside } from "../hooks/useClickOutside";
+import { useKey } from "../hooks/useKey";
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-200);
   font-size: 1.4rem;
@@ -106,18 +108,49 @@ const Input = styled.input`
     outline: none;
   }
 `;
+const Overlay = styled.div`
+  background-color: var(--backdrop-color);
+  backdrop-filter: blur(4px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+`;
+const StyledModal = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--color-grey-0);
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--border-radius-sm);
+  padding: 5.5rem 3rem;
+`;
+const ButtonModal = styled(Button)`
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+`;
 const TableContext = createContext();
 function Table({ children, columns, title, searchBy }) {
   const [searchQuery, setSearchQurey] = useState("");
+  const [openModal, setOpenModal] = useState(false);
+  const close = () => setOpenModal(false);
+  function handelOpen() {
+    setOpenModal(true);
+  }
   function handleSearchQeruy(e) {
     setSearchQurey(e.currentTarget.value);
   }
   return (
-    <TableContext.Provider value={{ columns, searchQuery, searchBy }}>
+    <TableContext.Provider
+      value={{ columns, searchQuery, searchBy, openModal, close }}
+    >
       <StyledTable>
         <header>
           <h3>{title}</h3>
-          <Button>
+          <Button onClick={handelOpen}>
             <HiOutlinePlus />
           </Button>
         </header>
@@ -151,7 +184,22 @@ function Body({ data, render }) {
 
   return <StyledBody>{displayData.map(render)}</StyledBody>;
 }
-function Window({ children }) {}
+function Window({ children }) {
+  const { close, openModal } = useContext(TableContext);
+  const ref = useClickOutside(close);
+  useKey("Escape", close);
+  if (!openModal) return null;
+  return (
+    <Overlay>
+      <StyledModal ref={ref}>
+        <ButtonModal onClick={() => close()}>
+          <HiOutlineXMark />
+        </ButtonModal>
+        <div>{cloneElement(children, { onCloseModal: close })}</div>
+      </StyledModal>
+    </Overlay>
+  );
+}
 Table.Header = Header;
 Table.Row = Row;
 Table.Body = Body;
