@@ -51,9 +51,16 @@ function CreateCabinForm({ onCloseModal }) {
   const { errors } = formState;
   const { createCabin, isLoading, error } = useCreatingCabins();
   function handleOnSubmit(data) {
-    console.log(data);
-    toast.success("data saved successfully");
-    onCloseModal?.();
+    const image = typeof data.image === "string" ? data.image : data.image[0];
+    createCabin(
+      { ...data, image: image },
+      {
+        onSuccess: () => {
+          reset();
+          onCloseModal?.();
+        },
+      }
+    );
   }
   return (
     <Form
