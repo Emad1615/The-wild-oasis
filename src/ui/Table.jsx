@@ -139,6 +139,7 @@ const TableOperation = styled.div`
   justify-content: end;
   align-items: center;
   gap: 1rem;
+  padding: 0.5rem 0;
 `;
 const TableContext = createContext();
 function Table({

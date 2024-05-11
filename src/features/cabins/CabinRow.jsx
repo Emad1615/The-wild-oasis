@@ -73,7 +73,7 @@ function CabinRow({ cabin }) {
               <Menus.List id={id}>
                 <Menus.Button
                   icon={<HiOutlineDuplicate />}
-                  title={"Duplucate"}
+                  title={"Duplicate"}
                   onClick={handleDuplicate}
                   disabled={isDuplicating}
                 />

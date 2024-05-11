@@ -34,6 +34,10 @@ function CabinTable() {
   if (selectedFilter === "with-discount")
     filteredData = cabins.filter((x) => x.discount > 0);
   //SortBy
+  const sortedValue = searchParams.get("sortBy") || "created_at-asc";
+  const [field, value] = sortedValue.split("-");
+  const modifier = value === "asc" ? 1 : -1;
+  filteredData = filteredData.sort((a, b) => (a[field] - b[field]) * modifier);
 
   return (
     <>
