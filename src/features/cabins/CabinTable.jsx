@@ -23,6 +23,7 @@ function CabinTable() {
   const { cabins, isLoading, error } = useCabins();
   const [searchParams] = useSearchParams();
   if (isLoading) return <Spinner />;
+  //FILTER
   const selectedFilter = searchParams.get("discount") || "all";
   let filteredData;
   if (selectedFilter === "all") filteredData = cabins;
@@ -32,6 +33,8 @@ function CabinTable() {
     );
   if (selectedFilter === "with-discount")
     filteredData = cabins.filter((x) => x.discount > 0);
+  //SortBy
+
   return (
     <>
       <Menus>
