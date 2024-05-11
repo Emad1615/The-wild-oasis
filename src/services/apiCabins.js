@@ -38,3 +38,11 @@ export async function creatingEditingCabin(newCabin, id) {
   }
   return data;
 }
+export async function deteleCabin(id) {
+  const { data, error } = await supabase.from("cabins").delete().eq("id", id);
+  if (error) {
+    console.error("an error occured during deleting cabin data");
+    throw new Error(error.message);
+  }
+  return data;
+}

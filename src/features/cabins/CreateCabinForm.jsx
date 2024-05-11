@@ -8,6 +8,7 @@ import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useCreatingCabins } from "./useCreatingCabins";
+import { useUpdateCabin } from "./useUpdateCabin";
 
 const FormRow = styled.div`
   display: grid;
@@ -46,21 +47,36 @@ const Error = styled.span`
   text-transform: uppercase;
 `;
 
-function CreateCabinForm({ onCloseModal }) {
-  const { register, getValues, reset, formState, handleSubmit } = useForm();
+function CreateCabinForm({ onCloseModal, cabinData = null, id }) {
+  const isSesionEdit = Boolean(id);
+  const { register, getValues, reset, formState, handleSubmit } = useForm({
+    defaultValues: isSesionEdit ? cabinData : {},
+  });
   const { errors } = formState;
-  const { createCabin, isLoading, error } = useCreatingCabins();
+  const { createCabin, isLoading: isCreating } = useCreatingCabins();
+  const { updateCabin, isLoading: isUpdating } = useUpdateCabin();
+  const isWorking = isCreating || isUpdating;
   function handleOnSubmit(data) {
     const image = typeof data.image === "string" ? data.image : data.image[0];
-    createCabin(
-      { ...data, image: image },
-      {
-        onSuccess: () => {
-          reset();
-          onCloseModal?.();
-        },
-      }
-    );
+    if (!isSesionEdit)
+      createCabin(
+        { ...data, image: image },
+        {
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
+        }
+      );
+    else
+      updateCabin(
+        { newCabin: { ...data, image: image }, id },
+        {
+          onSuccess: () => {
+            onCloseModal?.();
+          },
+        }
+      );
   }
   return (
     <Form
@@ -70,6 +86,7 @@ function CreateCabinForm({ onCloseModal }) {
       <FormRow>
         <Label htmlFor="name">Cabin name</Label>
         <Input
+          disabled={isWorking}
           type="text"
           id="name"
           {...register("name", {
@@ -82,6 +99,7 @@ function CreateCabinForm({ onCloseModal }) {
       <FormRow>
         <Label htmlFor="maxCapacity">Maximum capacity</Label>
         <Input
+          disabled={isWorking}
           type="number"
           id="maxCapacity"
           {...register("maxCapacity", {
@@ -98,6 +116,7 @@ function CreateCabinForm({ onCloseModal }) {
       <FormRow>
         <Label htmlFor="regularPrice">Regular price</Label>
         <Input
+          disabled={isWorking}
           type="number"
           id="regularPrice"
           {...register("regularPrice", {
@@ -110,15 +129,15 @@ function CreateCabinForm({ onCloseModal }) {
       <FormRow>
         <Label htmlFor="discount">Discount</Label>
         <Input
+          disabled={isWorking}
           type="number"
           id="discount"
           defaultValue={0}
           {...register("discount", {
             required: "This field is required",
             validate: (value) =>
-              Number(value) > Number(getValues().regularPrice)
-                ? "Discount must be less than the regular price"
-                : true,
+              Number(value) <= Number(getValues().regularPrice) ||
+              "Discount must be less than the regular price",
           })}
         />
         {errors?.discount && <Error>{errors.discount.message}</Error>}
@@ -127,6 +146,7 @@ function CreateCabinForm({ onCloseModal }) {
       <FormRow>
         <Label htmlFor="description">Description for website</Label>
         <Textarea
+          disabled={isWorking}
           type="number"
           id="description"
           defaultValue=""
@@ -140,10 +160,11 @@ function CreateCabinForm({ onCloseModal }) {
       <FormRow>
         <Label htmlFor="image">Cabin photo</Label>
         <FileInput
+          disabled={isWorking}
           id="image"
           accept="image/*"
           {...register("image", {
-            required: "This field is required",
+            required: !isSesionEdit ? "This field is required" : false,
           })}
         />
         {errors?.image && <Error>{errors.image.message}</Error>}
@@ -154,7 +175,7 @@ function CreateCabinForm({ onCloseModal }) {
         <Button variation="secondary" type="reset">
           Cancel
         </Button>
-        <Button>Add cabin</Button>
+        <Button disabled={isWorking}>Add cabin</Button>
       </FormRow>
     </Form>
   );
