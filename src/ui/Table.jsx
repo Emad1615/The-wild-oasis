@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { HiOutlinePlus, HiOutlineXMark } from "react-icons/hi2";
 import { useClickOutside } from "../hooks/useClickOutside";
 import { useKey } from "../hooks/useKey";
+import Filter from "./Filter";
+import SortBy from "./SortBy";
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-200);
   font-size: 1.4rem;
@@ -132,8 +134,24 @@ const ButtonModal = styled(Button)`
   top: 1rem;
   right: 1rem;
 `;
+const TableOperation = styled.div`
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 1rem;
+`;
 const TableContext = createContext();
-function Table({ children, columns, title, searchBy }) {
+function Table({
+  children,
+  columns,
+  title,
+  searchBy,
+  filterOptions = [],
+  filterValue = "",
+  sortOptions = [],
+  allowFilter = false,
+  allowSort = false,
+}) {
   const [searchQuery, setSearchQurey] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const close = () => setOpenModal(false);
@@ -161,6 +179,12 @@ function Table({ children, columns, title, searchBy }) {
             onChange={handleSearchQeruy}
           />
         </StyledSearch>
+        <TableOperation>
+          {allowFilter && (
+            <Filter options={filterOptions} filterValue={filterValue} />
+          )}
+          {allowSort && <SortBy options={sortOptions} />}
+        </TableOperation>
         {children}
       </StyledTable>
     </TableContext.Provider>
