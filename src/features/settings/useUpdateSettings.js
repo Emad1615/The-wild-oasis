@@ -17,7 +17,7 @@ export function useUpdateSettings() {
       toast.success("Data updated successfully");
     },
     onError: () => {
-      toast.success("Data not updated successfully");
+      toast.error("Data not updated successfully");
     },
   });
   return { updatingSetting, isLoading, error };

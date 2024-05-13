@@ -23,7 +23,7 @@ function UpdateSettingsForm() {
   } = useUpdateSettings();
   if (isLoading) return <Spinner />;
   function handleBlur(value, field) {
-    if (value) updatingSetting({ field, value });
+    if (value) updatingSetting({ [field]: value });
   }
   return (
     <Form>
@@ -41,7 +41,7 @@ function UpdateSettingsForm() {
           defaultValue={maxBookingLength}
           type="number"
           onBlur={(e) => handleBlur(e.currentTarget.value, "maxBookingLength")}
-          disabled={""}
+          disabled={isUpdating}
           id="max-nights"
         />
       </FormRow>
@@ -52,7 +52,7 @@ function UpdateSettingsForm() {
           onBlur={(e) =>
             handleBlur(e.currentTarget.value, "maxGuestsPerBooking")
           }
-          disabled={""}
+          disabled={isUpdating}
           id="max-guests"
         />
       </FormRow>
@@ -61,7 +61,7 @@ function UpdateSettingsForm() {
           defaultValue={breakfastPrice}
           type="number"
           onBlur={(e) => handleBlur(e.currentTarget.value, "breakfastPrice")}
-          disabled={""}
+          disabled={isUpdating}
           id="breakfast-price"
         />
       </FormRow>

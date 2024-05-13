@@ -3,6 +3,7 @@ import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
 import Spinner from "../../ui/Spinner";
 import { useBookings } from "./useBookings";
+import Pagination from "../../ui/Pagination";
 
 const filterOptions = [
   { value: "all", label: "All" },
@@ -46,6 +47,9 @@ function BookingTable() {
           data={bookings}
           render={(booking, idx) => <BookingRow key={idx} booking={booking} />}
         />
+        <Table.Footer>
+          <Pagination count={30} />
+        </Table.Footer>
         <Table.Window>
           <h1>You are welcome</h1>
         </Table.Window>
