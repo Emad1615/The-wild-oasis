@@ -3,6 +3,7 @@ import Form from "./../../ui/Form";
 import FormRow from "./../../ui/FormRow";
 import Input from "./../../ui/Input";
 import { useSettings } from "./useSettings";
+import { useUpdateSettings } from "./useUpdateSettings";
 
 function UpdateSettingsForm() {
   const {
@@ -15,15 +16,23 @@ function UpdateSettingsForm() {
     isLoading,
     error,
   } = useSettings();
+  const {
+    updatingSetting,
+    isLoading: isUpdating,
+    error: updateError,
+  } = useUpdateSettings();
   if (isLoading) return <Spinner />;
+  function handleBlur(value, field) {
+    if (value) updatingSetting({ field, value });
+  }
   return (
     <Form>
       <FormRow label="Minimum nights/booking">
         <Input
           defaultValue={minBookingLength}
           type="number"
-          onBlur={(e) => {}}
-          disabled={""}
+          onBlur={(e) => handleBlur(e.currentTarget.value, "minBookingLength")}
+          disabled={isUpdating}
           id="min-nights"
         />
       </FormRow>
@@ -31,7 +40,7 @@ function UpdateSettingsForm() {
         <Input
           defaultValue={maxBookingLength}
           type="number"
-          onBlur={(e) => {}}
+          onBlur={(e) => handleBlur(e.currentTarget.value, "maxBookingLength")}
           disabled={""}
           id="max-nights"
         />
@@ -40,7 +49,9 @@ function UpdateSettingsForm() {
         <Input
           defaultValue={maxGuestsPerBooking}
           type="number"
-          onBlur={(e) => {}}
+          onBlur={(e) =>
+            handleBlur(e.currentTarget.value, "maxGuestsPerBooking")
+          }
           disabled={""}
           id="max-guests"
         />
@@ -49,7 +60,7 @@ function UpdateSettingsForm() {
         <Input
           defaultValue={breakfastPrice}
           type="number"
-          onBlur={(e) => {}}
+          onBlur={(e) => handleBlur(e.currentTarget.value, "breakfastPrice")}
           disabled={""}
           id="breakfast-price"
         />
