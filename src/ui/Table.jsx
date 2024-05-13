@@ -201,10 +201,21 @@ function Row({ children }) {
 }
 function Body({ data, render }) {
   const { searchQuery, searchBy } = useContext(TableContext);
+
   if (data.length === 0) return <Empty>No data to be viewed</Empty>;
-  const displayData = searchQuery
-    ? data.filter((x) => x[searchBy].toLowerCase().includes(searchQuery))
-    : data;
+  let displayData;
+  if (searchBy.includes(".")) {
+    const [indexOne, indexTwo] = searchBy.split(".");
+    displayData = searchQuery
+      ? data.filter((x) =>
+          x[indexOne][indexTwo].toLowerCase().includes(searchQuery)
+        )
+      : data;
+  } else {
+    displayData = searchQuery
+      ? data.filter((x) => x[searchBy].toLowerCase().includes(searchQuery))
+      : data;
+  }
   if (displayData.length === 0) return <Empty>No data to be viewed</Empty>;
 
   return <StyledBody>{displayData.map(render)}</StyledBody>;

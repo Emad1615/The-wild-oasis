@@ -27,7 +27,7 @@ function BookingTable() {
       <Table
         title={"Boobkings list"}
         columns={"0.6fr 2fr 2.4fr 1.4fr 1fr 3.2rem"}
-        searchBy={"cabin"}
+        searchBy={"cabins.name"}
         allowFilter={true}
         allowSort={true}
         filterValue="status"
