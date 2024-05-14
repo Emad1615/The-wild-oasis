@@ -21,7 +21,7 @@ const sortOptions = [
   { value: "totalPrice-asc", label: "Sort by amount (low first)" },
 ];
 function BookingTable() {
-  const { bookings, isLoading, error, status } = useBookings();
+  const { bookings, isLoading, error, status, count } = useBookings();
   if (isLoading) return <Spinner />;
   return (
     <Menus>
@@ -48,7 +48,7 @@ function BookingTable() {
           render={(booking, idx) => <BookingRow key={idx} booking={booking} />}
         />
         <Table.Footer>
-          <Pagination count={30} />
+          <Pagination count={count} />
         </Table.Footer>
         <Table.Window>
           <h1>You are welcome</h1>
