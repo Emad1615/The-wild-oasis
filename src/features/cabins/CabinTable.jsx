@@ -5,6 +5,7 @@ import Spinner from "./../../ui/Spinner";
 import CreateCabinForm from "./CreateCabinForm";
 import Menus from "../../ui/Menus";
 import { useSearchParams } from "react-router-dom";
+import Pagination from "./../../ui/Pagination";
 
 const filterOptions = [
   { value: "all", label: "All" },
@@ -20,7 +21,7 @@ const sortedOptions = [
   { value: "maxCapacity-desc", label: "Sort by capacity (high first)" },
 ];
 function CabinTable() {
-  const { cabins, isLoading, error } = useCabins();
+  const { cabins, isLoading, error, count } = useCabins();
   const [searchParams] = useSearchParams();
   if (isLoading) return <Spinner />;
   //FILTER
@@ -38,7 +39,6 @@ function CabinTable() {
   const [field, value] = sortedValue.split("-");
   const modifier = value === "asc" ? 1 : -1;
   filteredData = filteredData.sort((a, b) => (a[field] - b[field]) * modifier);
-
   return (
     <>
       <Menus>
@@ -65,6 +65,9 @@ function CabinTable() {
             data={filteredData}
             render={(cabin, idx) => <CabinRow cabin={cabin} key={idx} />}
           />
+          <Table.Footer>
+            <Pagination count={count} />
+          </Table.Footer>
           <Table.Window>
             <CreateCabinForm />
           </Table.Window>

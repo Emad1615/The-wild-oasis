@@ -1,12 +1,19 @@
+import { PAGE_SIZE } from "../utils/constants";
 import supabase, { supabaseUrl } from "./supabase";
 
-export async function getCabins() {
-  let { data: cabins, error } = await supabase.from("cabins").select("*");
+export async function getCabins(page) {
+  let query = supabase.from("cabins").select("*", { count: "exact" });
+  if (page) {
+    const from = (page - 1) * PAGE_SIZE;
+    const to = from + (PAGE_SIZE - 1);
+    query = query.range(from, to);
+  }
+  let { data: cabins, error, count } = await query;
   if (error) {
     console.error("an error occured during get cabins data");
     throw new Error(error.message);
   }
-  return cabins;
+  return { cabins, count };
 }
 export async function creatingEditingCabin(newCabin, id) {
   const hasImage = newCabin?.image?.startsWith?.(supabaseUrl);
