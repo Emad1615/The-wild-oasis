@@ -176,7 +176,6 @@ function BookingDataBox({ booking }) {
           <p>{isPaid ? "Paid" : "Will pay at property"}</p>
         </Price>
       </Section>
-
       <Footer>
         <p>Booked {format(new Date(created_at), "EEE, MMM dd yyyy, p")}</p>
       </Footer>
