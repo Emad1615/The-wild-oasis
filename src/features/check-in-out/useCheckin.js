@@ -12,10 +12,11 @@ export function useCheckin() {
     isLoading: isUpdating,
     error: checkInError,
   } = useMutation({
-    mutationFn: () =>
+    mutationFn: ({ bookingId, breakfast }) =>
       updateBooking(bookingId, {
         status: "checked-in",
         isPaid: true,
+        ...breakfast,
       }),
     onSuccess: (data) => {
       toast.success(`Booking #${data.id} has been successfully checked in`);

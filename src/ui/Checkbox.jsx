@@ -10,6 +10,10 @@ const StyledCheckbox = styled.div`
     outline-offset: 2px;
     transform-origin: 0;
     accent-color: var(--color-brand-600);
+    outline: none;
+    &:focus {
+      outline: none;
+    }
   }
 
   & input[type="checkbox"]:disabled {

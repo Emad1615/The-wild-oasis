@@ -6,5 +6,6 @@ const Box = styled.div`
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-sm);
   padding: 2.4rem 4rem;
+  margin: 0.5rem 0;
 `;
 export default Box;
