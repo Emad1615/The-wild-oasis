@@ -6,7 +6,6 @@ import toast from "react-hot-toast";
 export function useCheckin() {
   const { bookingId } = useParams();
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
   const {
     mutate: checkIn,
     isLoading: isUpdating,
@@ -23,7 +22,6 @@ export function useCheckin() {
       queryClient.invalidateQueries({
         active: true,
       });
-      navigate("/dashboard");
     },
     onError: () => toast.error("an Error Occured during checking in process"),
   });
