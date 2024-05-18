@@ -5,6 +5,7 @@ const Input = styled.input`
   border-radius: 5px;
   padding: 0.5rem 1rem;
   outline: none;
+  width: 100%;
   &:focus {
     outline: none;
   }

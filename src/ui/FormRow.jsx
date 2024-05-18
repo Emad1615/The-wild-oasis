@@ -5,7 +5,7 @@ const StyledRowForm = styled.div`
   display: grid;
   grid-template-columns: 23rem 1fr 1.2fr;
   align-items: center;
-  gap: 1rem;
+  gap: 3rem;
   padding: 1.5rem 1rem;
   margin: 0.5rem 0;
   background-color: var(--color-grey-100);
@@ -61,8 +61,9 @@ const StyledRowForm = styled.div`
 `;
 
 const Error = styled.span`
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   color: var(--color-red-700);
+  text-transform: uppercase;
 `;
 function FormRow({ label, error, children }) {
   const [displayIcon, setDisplayIcon] = useState(false);

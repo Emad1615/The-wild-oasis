@@ -21,7 +21,13 @@ const Form = styled.form`
   overflow: hidden;
   font-size: 1.4rem;
   border: 1px solid var(--color-grey-100);
-  padding: 1rem;
+  padding: 2.5rem 3rem;
+  border-radius: 5px;
+  background-color: var(--color-grey-0);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: var(--shadow-sm);
 `;
 
 export default Form;
