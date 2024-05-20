@@ -1,6 +1,5 @@
 import { createContext, useContext } from "react";
 import { useEffect } from "react";
-import { useState } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorageState";
 
 const DarkModeContext = createContext();
