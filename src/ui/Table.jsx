@@ -102,8 +102,11 @@ const StyledSearch = styled.div`
 `;
 const Input = styled.input`
   border: none;
+  background-color: var(--color-grey-200);
   border-bottom: 1px solid var(--color-grey-200);
-  padding: 0rem 1.5rem;
+  padding: 0.5rem 1.5rem;
+  border-radius: 5px;
+  color: var(--color-grey-700);
   font-size: 14px;
   &:focus {
     outline: none;
