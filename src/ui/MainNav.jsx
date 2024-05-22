@@ -7,6 +7,7 @@ import {
   HiOutlineHomeModern,
   HiOutlineUsers,
 } from "react-icons/hi2";
+import Uploader from "../data/Uploader";
 
 const StyledNavContainer = styled.div`
   display: flex;
@@ -92,6 +93,7 @@ function MainNav() {
           </StyledNavLink>
         </li>
       </NavList>
+      <Uploader />
       <p>©️ Copyright-{new Date().getFullYear().toString()} Emad Ismail</p>
     </StyledNavContainer>
   );

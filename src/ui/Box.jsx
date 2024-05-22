@@ -5,7 +5,10 @@ const Box = styled.div`
   border: 1px solid var(--color-grey-50);
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-sm);
-  padding: 2.4rem 4rem;
-  margin: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  padding: 3.2rem;
 `;
+
 export default Box;
