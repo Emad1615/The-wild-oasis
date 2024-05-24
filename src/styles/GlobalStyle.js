@@ -2,6 +2,7 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
 :root {
+ 
   &, &.light-mode{
     /* Indigo */
   --color-brand-50: #eef2ff;
@@ -213,5 +214,6 @@ img {
   0% {  transform: rotate(0)}
   100% { transform: rotate(360deg)}
 }
+
 `;
 export default GlobalStyle;

@@ -14,6 +14,10 @@ const Main = styled.main`
   padding: 3.4rem 4.8rem 6.4rem;
   background-color: var(--color-grey-50);
   overflow: auto;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    width: 0 !important;
+  }
 `;
 const StyledContainer = styled.div`
   max-width: 150rem;
