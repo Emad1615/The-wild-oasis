@@ -4,6 +4,7 @@ import Menus from "../../ui/Menus";
 import Spinner from "../../ui/Spinner";
 import { useBookings } from "./useBookings";
 import Pagination from "../../ui/Pagination";
+import Empty from "../../ui/Empty";
 
 const filterOptions = [
   { value: "all", label: "All" },
@@ -23,6 +24,8 @@ const sortOptions = [
 function BookingTable() {
   const { bookings, isLoading, error, status, count } = useBookings();
   if (isLoading) return <Spinner />;
+  if (!bookings.length) return <Empty resource={"Bookings"} />;
+
   return (
     <Menus>
       <Table

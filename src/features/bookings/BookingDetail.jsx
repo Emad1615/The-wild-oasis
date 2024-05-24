@@ -17,6 +17,7 @@ import { HiOutlineArrowUp } from "react-icons/hi2";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import { useDeleteBooking } from "./useDeleteBooking";
+import Empty from "../../ui/Empty";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -32,7 +33,7 @@ function BookingDetail() {
   const { deleteBooking, isDeleting } = useDeleteBooking();
 
   if (isLoading) return <Spinner />;
-  console.log(booking);
+  if (!booking) return <Empty resource={"Booking"} />;
   const { status, id: bookingId } = booking;
   const statusToTagName = {
     unconfirmed: "blue",

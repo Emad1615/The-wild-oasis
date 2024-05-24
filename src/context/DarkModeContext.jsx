@@ -5,7 +5,10 @@ import { useLocalStorage } from "../hooks/useLocalStorageState";
 const DarkModeContext = createContext();
 
 export default function DarkModeContextProvider({ children }) {
-  const [isDarkMode, setIsDarkMode] = useLocalStorage("DARK-MODE", false);
+  const [isDarkMode, setIsDarkMode] = useLocalStorage(
+    "DARK-MODE",
+    window.matchMedia(`(prefers-color-scheme:dark)`).matches
+  );
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add("dark-mode");
@@ -30,3 +33,4 @@ export function useDarkMode() {
     throw new Error("your created context used outside context porvider");
   return context;
 }
+//window.matchMedia('(prefers-color-scheme:dark)').matches

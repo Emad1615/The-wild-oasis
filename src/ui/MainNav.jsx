@@ -93,7 +93,7 @@ function MainNav() {
           </StyledNavLink>
         </li>
       </NavList>
-      <Uploader />
+      {/* <Uploader /> */}
       <p>©️ Copyright-{new Date().getFullYear().toString()} Emad Ismail</p>
     </StyledNavContainer>
   );
