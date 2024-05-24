@@ -35,6 +35,9 @@ function TodayActivity({ activities }) {
         <Heading as="h2">Today</Heading>
       </Row>
       <StyledList>
+        {activities.length === 0 && (
+          <NotActivity>No activity today</NotActivity>
+        )}
         {activities?.map((activity, idx) => (
           <TodayItem key={idx} activity={activity} />
         ))}

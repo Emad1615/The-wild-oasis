@@ -1,4 +1,13 @@
+import {
+  Cell,
+  Legend,
+  Pie,
+  PieChart,
+  ResponsiveContainer,
+  Tooltip,
+} from "recharts";
 import styled from "styled-components";
+import { useDarkMode } from "../../context/DarkModeContext";
 
 const ChartBox = styled.div`
   /* Box */
@@ -17,6 +26,16 @@ const ChartBox = styled.div`
     font-weight: 600;
   }
 `;
+const COLORS_PALETTE = [
+  "#ef4444",
+  "#f97316",
+  "#eab308",
+  "#84cc16",
+  "#22c55e",
+  "#14b8a6",
+  "#3b82f6",
+  "#a855f7",
+];
 
 const startDataLight = [
   {
@@ -130,3 +149,47 @@ function prepareData(startData, stays) {
 
   return data;
 }
+
+function DurationChart({ stays }) {
+  const { isDarkMode } = useDarkMode();
+  const startData = isDarkMode ? startDataDark : startDataLight;
+  const data = prepareData(startData, stays);
+  return (
+    <ChartBox>
+      <ResponsiveContainer height={300} width={"100%"}>
+        <PieChart width={800} height={400}>
+          <Pie
+            data={data}
+            innerRadius={85}
+            outerRadius={110}
+            cx="40%"
+            cy="50%"
+            fill="#8884d8"
+            paddingAngle={5}
+            dataKey="value"
+            nameKey="duration"
+          >
+            {startDataLight.map((days, idx) => (
+              <Cell
+                key={`nights-${days.duration}`}
+                fill={days.color}
+                stroke={days.color}
+              />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend
+            iconType="circle"
+            verticalAlign="middle"
+            align="right"
+            layout="vertical"
+            width={"30%"}
+            iconSize={15}
+          />
+        </PieChart>
+      </ResponsiveContainer>
+    </ChartBox>
+  );
+}
+
+export default DurationChart;

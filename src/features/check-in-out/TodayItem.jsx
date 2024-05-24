@@ -2,6 +2,9 @@ import styled from "styled-components";
 import Tag from "./../../ui/Tag";
 import Flag from "./../../ui/Flag";
 import Button from "./../../ui/Button";
+import { Link } from "react-router-dom";
+import { useCheckout } from "./../check-in-out/useCheckout";
+import SpinnerMini from "../../ui/SpinnerMini";
 const StyledTodayItem = styled.li`
   display: grid;
   grid-template-columns: 11rem 2rem 1fr 7rem 9rem;
@@ -21,6 +24,7 @@ const Guest = styled.div`
   font-weight: 500;
 `;
 function TodayItem({ activity }) {
+  const { checkOut, isCheckout } = useCheckout();
   return (
     <StyledTodayItem>
       {activity.status === "unconfirmed" && (
@@ -36,13 +40,23 @@ function TodayItem({ activity }) {
       <Guest>{activity.guests.fullName}</Guest>
       <div>{activity.numNights} nights</div>
       {activity.status === "unconfirmed" && (
-        <Button variation="primary" sizes="small">
+        <Button
+          variation="primary"
+          sizes="small"
+          as={Link}
+          to={`/checkin/${activity.id}`}
+        >
           Check in
         </Button>
       )}
       {activity.status === "checked-in" && (
-        <Button variation="danger" sizes="small">
-          Check out
+        <Button
+          disabled={isCheckout}
+          variation="danger"
+          sizes="small"
+          onClick={() => checkOut(activity.id)}
+        >
+          {isCheckout ? <SpinnerMini /> : "Check out"}
         </Button>
       )}
     </StyledTodayItem>
