@@ -6,7 +6,6 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
 import { useCreatingCabins } from "./useCreatingCabins";
 import { useUpdateCabin } from "./useUpdateCabin";
 

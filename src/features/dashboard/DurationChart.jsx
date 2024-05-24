@@ -26,16 +26,16 @@ const ChartBox = styled.div`
     font-weight: 600;
   }
 `;
-const COLORS_PALETTE = [
-  "#ef4444",
-  "#f97316",
-  "#eab308",
-  "#84cc16",
-  "#22c55e",
-  "#14b8a6",
-  "#3b82f6",
-  "#a855f7",
-];
+// const COLORS_PALETTE = [
+//   "#ef4444",
+//   "#f97316",
+//   "#eab308",
+//   "#84cc16",
+//   "#22c55e",
+//   "#14b8a6",
+//   "#3b82f6",
+//   "#a855f7",
+// ];
 
 const startDataLight = [
   {

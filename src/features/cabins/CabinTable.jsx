@@ -21,7 +21,7 @@ const sortedOptions = [
   { value: "maxCapacity-desc", label: "Sort by capacity (high first)" },
 ];
 function CabinTable() {
-  const { cabins, isLoading, error, count } = useCabins();
+  const { cabins, isLoading, count } = useCabins();
   const [searchParams] = useSearchParams();
   if (isLoading) return <Spinner />;
   //FILTER

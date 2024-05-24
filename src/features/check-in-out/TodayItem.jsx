@@ -27,12 +27,8 @@ function TodayItem({ activity }) {
   const { checkOut, isCheckout } = useCheckout();
   return (
     <StyledTodayItem>
-      {activity.status === "unconfirmed" && (
-        <Tag type="blue">{activity.status}</Tag>
-      )}
-      {activity.status === "checked-in" && (
-        <Tag type="green">{activity.status}</Tag>
-      )}
+      {activity.status === "unconfirmed" && <Tag type="blue">Arriving</Tag>}
+      {activity.status === "checked-in" && <Tag type="green">Departing</Tag>}
       <Flag
         src={activity.guests.countryFlag}
         alt={`country flag of ${activity.guests.fullName}`}

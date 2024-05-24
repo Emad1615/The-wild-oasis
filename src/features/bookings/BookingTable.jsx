@@ -22,7 +22,7 @@ const sortOptions = [
   { value: "totalPrice-asc", label: "Sort by amount (low first)" },
 ];
 function BookingTable() {
-  const { bookings, isLoading, error, status, count } = useBookings();
+  const { bookings, isLoading, count } = useBookings();
   if (isLoading) return <Spinner />;
   if (!bookings.length) return <Empty resource={"Bookings"} />;
 

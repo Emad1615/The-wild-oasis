@@ -36,16 +36,8 @@ const Discount = styled.div`
   color: var(--color-green-700);
 `;
 function CabinRow({ cabin }) {
-  const {
-    id,
-    created_at,
-    name,
-    maxCapacity,
-    regularPrice,
-    discount,
-    description,
-    image,
-  } = cabin;
+  const { id, name, maxCapacity, regularPrice, discount, description, image } =
+    cabin;
   const { createCabin, isLoading: isDuplicating } = useCreatingCabins();
   function handleDuplicate() {
     createCabin({

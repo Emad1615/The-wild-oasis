@@ -1,5 +1,5 @@
 import { cloneElement, createContext, useContext, useState } from "react";
-import { HiOutlineXMark, HiXMark } from "react-icons/hi2";
+import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
 import { useClickOutside } from "../hooks/useClickOutside";
 import { useKey } from "../hooks/useKey";

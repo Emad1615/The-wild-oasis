@@ -14,13 +14,8 @@ function UpdateSettingsForm() {
       breakfastPrice,
     } = {},
     isLoading,
-    error,
   } = useSettings();
-  const {
-    updatingSetting,
-    isLoading: isUpdating,
-    error: updateError,
-  } = useUpdateSettings();
+  const { updatingSetting, isLoading: isUpdating } = useUpdateSettings();
   if (isLoading) return <Spinner />;
   function handleBlur(value, field) {
     if (value) updatingSetting({ [field]: value });

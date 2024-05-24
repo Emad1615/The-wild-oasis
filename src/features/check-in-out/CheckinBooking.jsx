@@ -16,21 +16,19 @@ import { useSettings } from "./../settings/useSettings";
 
 function CheckinBooking() {
   const moveBack = useMoveBack();
-  const { booking, isLoading, error } = useBooking();
+  const { booking, isLoading } = useBooking();
   const { settings, isLoading: isLoadingSetting } = useSettings();
-  const { checkIn, isUpdating, checkInError } = useCheckin();
+  const { checkIn, isUpdating } = useCheckin();
   const [confirmPaid, setConfirmPaid] = useState(false);
   const [addBreakfast, setAddBreakfast] = useState(false);
   useEffect(() => setConfirmPaid(booking?.isPaid || false), [booking]);
   if (isLoading || isLoadingSetting) return <Spinner />;
   const {
     id: bookingId,
-    guests,
     totalPrice,
     numGuests,
     hasBreakfast,
     numNights,
-    isPaid,
   } = booking;
   const optionalBreakfastPrice =
     settings.breakfastPrice * numGuests * numNights;
